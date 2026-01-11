@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import pickle
+import joblib
 
 st.set_page_config(page_title="Insurance Charges Prediction App", layout="centered")
 st.title("💰 Insurance Charges Prediction App")
@@ -47,11 +47,10 @@ region = st.selectbox(
 # ------------------------------------
 
 if st.button("Predict Insurance Charges"):
-    with open("RF_model.pkl", "rb") as f:
-        model = pickle.load(f)
+    model = joblib.load("RF_model.pkl")
 
     # Columns EXACTLY used during training
-    columns = ['age', 'sex', 'bmi', 'children', 'smoker', 'region']
+    columns = ['age', 'gender', 'bmi', 'children', 'smoker', 'region']
 
     # Build input row from user inputs
     sample_input = pd.DataFrame([[
